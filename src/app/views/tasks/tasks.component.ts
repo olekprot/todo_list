@@ -8,6 +8,7 @@ import {EditTaskDialogComponent} from '../../dialog/edit-task-dialog/edit-task-d
 import {Category} from '../../model/Category';
 import {Task} from '../../model/Task';
 import {DataHandlerService} from '../../service/data-handler.service';
+import {Priority} from "../../model/Priority";
 
 @Component({
     selector: 'app-tasks',
@@ -21,12 +22,20 @@ export class TasksComponent implements OnInit {
 
     @ViewChild(MatPaginator, {static: false}) private paginator: MatPaginator;
     @ViewChild(MatSort, {static: false}) private sort: MatSort;
-    private tasks: Task[];
+    public tasks: Task[];
+    public priorities: Priority[];
+    public searchTaskText: string;
+    public selectedStatusFilter: boolean = null;
+    public selectedPriorityFilter: Priority = null;
 
     @Input('tasks')
     public set setTasks(tasks: Task[]) {
         this.tasks = tasks;
         this.fillTable();
+    }
+    @Input('priorities')
+    set setPriorities(priorities: Priority[]) {
+        this.priorities = priorities;
     }
 
     @Output()
@@ -35,6 +44,13 @@ export class TasksComponent implements OnInit {
     public updateTask = new EventEmitter<Task>();
     @Output()
     public selectCategory = new EventEmitter<Category>();
+    @Output()
+    public filterByTitle = new EventEmitter<string>();
+    @Output()
+    public filterByStatus = new EventEmitter<boolean>();
+    @Output()
+    filterByPriority = new EventEmitter<Priority>();
+
     public dataHandler: DataHandlerService;
     private dialog: MatDialog;
 
@@ -66,7 +82,7 @@ export class TasksComponent implements OnInit {
     }
 
     // показывает задачи с применением всех текущий условий (категория, поиск, фильтры и пр.)
-    private fillTable(): void {
+    public fillTable(): void {
         if (!this.dataSource) {
             return;
         }
@@ -95,7 +111,7 @@ export class TasksComponent implements OnInit {
         };
     }
 
-    private addTableObjects(): void {
+    public addTableObjects(): void {
         this.dataSource.sort = this.sort; // компонент для сортировки данных (если необходимо)
         this.dataSource.paginator = this.paginator; // обновить компонент постраничности (кол-во записей, страниц)
     }
@@ -148,5 +164,20 @@ export class TasksComponent implements OnInit {
     }
     public onSelectCategory(category: Category): void {
         this.selectCategory.emit(category);
+    }
+    public onFilterByTitle(): void{
+        this.filterByTitle.emit(this.searchTaskText);
+    }
+    public onFilterByStatus(value: boolean): void {
+        if (value !== this.selectedStatusFilter){
+            this.selectedStatusFilter = value;
+            this.filterByStatus.emit(this.selectedStatusFilter);
+        }
+    }
+    public onFilterByPriority(value: Priority): void {
+        if (value !== this.selectedPriorityFilter) {
+            this.selectedPriorityFilter = value;
+            this.filterByPriority.emit(this.selectedPriorityFilter);
+        }
     }
 }
