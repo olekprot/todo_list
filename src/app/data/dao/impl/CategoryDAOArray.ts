@@ -4,8 +4,18 @@ import {TestData} from '../../TestData';
 import {ICategoryDao} from '../interface/CategoryDao';
 
 export class CategoryDAOArray implements ICategoryDao {
-    public add(T: Category): Observable<Category> {
-        return undefined;
+    public add(category: Category): Observable<Category> {
+
+        if (category.id === null || category.id === 0) {
+            category.id = this.getLastIdCategory();
+        }
+
+        TestData.categories.push(category);
+        return of(category);
+
+    }
+    public getLastIdCategory(): number {
+        return Math.max.apply(Math, TestData.categories.map(c => c.id)) + 1;
     }
 
     public delete(id: number): Observable<Category> {

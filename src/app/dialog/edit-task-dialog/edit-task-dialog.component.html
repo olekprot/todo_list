@@ -54,13 +54,13 @@
         </button>
     </div>
     <div class="col-md-7 col-12 text-right">
-        <button mat-button class="green" (click)="complete()" *ngIf="!task.completed">
+        <button mat-button class="green" (click)="complete()" *ngIf="!task.completed && task.id" >
             Завершить задачу
         </button>
         <button mat-button class="green" (click)="activate()" *ngIf="task.completed">
             Активировать
         </button>
-        <button mat-button class="red" (click)="delete()">
+        <button mat-button class="red" (click)="delete()" *ngIf="task.id">
             Удалить задачу
         </button>
     </div>

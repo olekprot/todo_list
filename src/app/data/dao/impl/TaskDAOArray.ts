@@ -6,8 +6,15 @@ import {TestData} from '../../TestData';
 import {ITaskDao} from '../interface/TaskDao';
 
 export class TaskDAOArray implements ITaskDao {
-    public add(T: Task): Observable<Task> {
-        return undefined;
+    public add(task: Task): Observable<Task> {
+        if (task.id === null || task.id === 0){
+            task.id = this.getLastIdTask();
+        }
+        TestData.tasks.push(task);
+        return of(task);
+    }
+    public getLastIdTask(): number {
+        return Math.max.apply(Math, TestData.tasks.map(task => task.id)) + 1;
     }
 
     public delete(id: number): Observable<Task> {

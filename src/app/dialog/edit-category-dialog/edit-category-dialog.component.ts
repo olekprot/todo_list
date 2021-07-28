@@ -1,6 +1,7 @@
 import {Component, OnInit, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef, MatDialog} from '@angular/material';
 import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
+import {OperType} from '../OperType';
 
 @Component({
     selector: 'app-edit-category-dialog',
@@ -10,28 +11,26 @@ import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component
 export class EditCategoryDialogComponent implements OnInit {
     private categoryTitle: string;
     public dialogTitle: string;
-    public canDelete: boolean;
+    public operType: OperType;
 
     constructor(
         public dialogRef: MatDialogRef<EditCategoryDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) private data: [string, string],
+        @Inject(MAT_DIALOG_DATA) private data: [string, string, OperType],
         public dialog: MatDialog
     ) {}
 
     public ngOnInit(): void {
         this.categoryTitle = this.data[0];
         this.dialogTitle = this.data[1];
-        if (this.categoryTitle) {
-            this.canDelete = false;
-        }
+        this.operType = this.data[2];
     }
-    public onConfirm(): void {
+    public onConfirm() {
         this.dialogRef.close(this.categoryTitle);
     }
-    public onCancel(): void {
+    public onCancel() {
         this.dialogRef.close(false);
     }
-    public delete(): void {
+    public delete() {
         const dialogRef = this.dialog.open(ConfirmDialogComponent, {
             maxWidth: '500px',
             data: {
@@ -45,5 +44,8 @@ export class EditCategoryDialogComponent implements OnInit {
                 this.dialogRef.close('delete');
             }
         });
+    }
+    public canDelete(): boolean {
+        return this.operType === OperType.EDIT;
     }
 }

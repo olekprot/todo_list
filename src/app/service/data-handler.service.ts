@@ -62,4 +62,10 @@ export class DataHandlerService {
     public deleteCategory(id: number): Observable<Category> {
         return this.categoriesDaoArray.delete(id);
     }
+    public addTask(task: Task): Observable<Task> {
+        return this.taskDaoArray.add(task);
+    }
+    public addCategory(title: string): Observable<Category> {
+        return this.categoryDaoArray.add(new Category(null, title));
+    }
 }

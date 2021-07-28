@@ -28,6 +28,7 @@ export class TasksComponent implements OnInit {
     public selectedStatusFilter: boolean = null;
     public selectedPriorityFilter: Priority = null;
 
+
     @Input('tasks')
     public set setTasks(tasks: Task[]) {
         this.tasks = tasks;
@@ -37,6 +38,8 @@ export class TasksComponent implements OnInit {
     set setPriorities(priorities: Priority[]) {
         this.priorities = priorities;
     }
+    @Input()
+    public selectedCategory: Category;
 
     @Output()
     public deleteTask = new EventEmitter<Task>();
@@ -50,6 +53,8 @@ export class TasksComponent implements OnInit {
     public filterByStatus = new EventEmitter<boolean>();
     @Output()
     filterByPriority = new EventEmitter<Priority>();
+    @Output()
+    public addTask = new EventEmitter<Task>();
 
     public dataHandler: DataHandlerService;
     private dialog: MatDialog;
@@ -179,5 +184,14 @@ export class TasksComponent implements OnInit {
             this.selectedPriorityFilter = value;
             this.filterByPriority.emit(this.selectedPriorityFilter);
         }
+    }
+    public openAddTaskDialog(): void {
+        const task = new Task(null,'',false,null, this.selectedCategory);
+        const dialogRef = this.dialog.open(EditTaskDialogComponent, {data:[task, 'Добавление задачи']});
+        dialogRef.afterClosed().subscribe(result => {
+            if(result){
+                this.addTask.emit(task);
+            }
+        })
     }
 }
