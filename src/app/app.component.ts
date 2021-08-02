@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
     public priorities: Priority[];
     public selectedCategory: Category;
     public searchTasksText: string = '';
+    public searchCategoryText: string = '';
     public priorityFilter: Priority;
     public statusFilter: boolean;
 
@@ -27,16 +28,9 @@ export class AppComponent implements OnInit {
         this.dataHandler.getAllCategories().subscribe((categories) => this.categories = categories);
         this.onSelectCategory(null);
     }
-    public onSelectCategory(category: Category): void {
+    public onSelectCategory(category: Category) {
         this.selectedCategory = category;
-        this.dataHandler.searchTasks(
-            this.selectedCategory,
-            null,
-            null,
-            null
-        ).subscribe(tasks => {
-            this.tasks = tasks;
-        });
+        this.updateTasks();
     }
     public onUpdateTask(task: Task): void {
         this.updateTasks();
@@ -49,12 +43,12 @@ export class AppComponent implements OnInit {
     public onDeleteCategory(category: Category): void {
         this.dataHandler.deleteCategory(category.id).subscribe((cat: Category) => {
             this.selectedCategory = null;
-            this.onSelectCategory(this.selectedCategory);
+            this.onSearchCategory(this.searchCategoryText);
         });
     }
     public onUpdateCategory(category: Category): void {
         this.dataHandler.updateCategory(category).subscribe(() => {
-            this.onSelectCategory(this.selectedCategory);
+            this.onSearchCategory(this.searchCategoryText);
         });
     }
     public onSearchTasks(searchString: string): void {
@@ -90,5 +84,11 @@ export class AppComponent implements OnInit {
 
     public updateCategories() {
         this.dataHandler.getAllCategories().subscribe(categories => this.categories = categories);
+    }
+    public onSearchCategory(title: string) {
+        this.searchCategoryText = title;
+        this.dataHandler.searchCategories(title).subscribe(categories => {
+            this.categories = categories;
+            });
     }
 }

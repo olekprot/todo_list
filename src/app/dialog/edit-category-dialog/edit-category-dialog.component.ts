@@ -9,7 +9,7 @@ import {OperType} from '../OperType';
     styleUrls: ['./edit-category-dialog.component.css']
 })
 export class EditCategoryDialogComponent implements OnInit {
-    private categoryTitle: string;
+    public categoryTitle: string;
     public dialogTitle: string;
     public operType: OperType;
 

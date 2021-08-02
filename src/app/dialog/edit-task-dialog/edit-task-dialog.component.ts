@@ -22,7 +22,7 @@ export class EditTaskDialogComponent implements OnInit {
     public priorities: Priority[];
 
     public dialogTitle: string;
-    private task: Task;
+    public task: Task;
     public tmpTitle: string;
     public tmpCategory: Category;
     public tmpPriority: Priority;

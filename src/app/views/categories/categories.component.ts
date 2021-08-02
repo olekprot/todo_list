@@ -22,9 +22,12 @@ export class CategoriesComponent implements OnInit {
     @Input()
     public selectedCategory: Category;
     @Output()
-    public addCategory = new EventEmitter<string>()
+    public addCategory = new EventEmitter<string>();
+    @Output()
+    public searchCategory = new EventEmitter<string>();
     public indexMouseMove: number;
     public showEditIconCategory: boolean;
+    public searchCategoryTitle: string;
     constructor(public dataHandler: DataHandlerService, public dialog: MatDialog) {}
 
     // метод вызывается автоматически после инициализации компонента
@@ -67,5 +70,11 @@ export class CategoriesComponent implements OnInit {
                 this.addCategory.emit(result as string);
             }
         })
+    }
+    public search(){
+        if (this.searchCategoryTitle === null){
+            return;
+        }
+        this.searchCategory.emit(this.searchCategoryTitle);
     }
 }
