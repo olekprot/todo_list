@@ -31,20 +31,24 @@ export class TaskDAOArray implements ITaskDao {
         return of(TestData.tasks);
     }
 
+    // кол-во завершенных задач в заданной категории (если category === null, то для всех категорий)
     public getCompletedCountInCategory(category: Category): Observable<number> {
-        return undefined;
+        return of(this.searchTasks(category, null, true, null).length);
     }
 
-    public getTotalCount(): Observable<number> {
-        return undefined;
-    }
-
-    public getTotalCountCategory(category: Category): Observable<number> {
-        return undefined;
-    }
-
+    // кол-во незавершенных задач в заданной категории (если category === null, то для всех категорий)
     public getUncompletedCountInCategory(category: Category): Observable<number> {
-        return undefined;
+        return of(this.searchTasks(category, null, false, null).length);
+    }
+
+    // кол-во всех задач в заданной категории (если category === null, то для всех категорий)
+    public getTotalCountInCategory(category: Category): Observable<number> {
+        return of(this.searchTasks(category, null, null, null).length);
+    }
+
+    // кол-во всех задач в общем
+    public getTotalCount(): Observable<number> {
+        return of(TestData.tasks.length);
     }
 
     public search(category: Category, searchText: string, status: boolean, priority: Priority): Observable<Task[]> {
@@ -80,5 +84,9 @@ export class TaskDAOArray implements ITaskDao {
         const taskTmp = TestData.tasks.find((t) => t.id === T.id);
         TestData.tasks.splice(TestData.tasks.indexOf(taskTmp), 1, T);
         return of(T);
+    }
+
+    getTotalCountCategory(category: Category): Observable<number> {
+        return undefined;
     }
 }

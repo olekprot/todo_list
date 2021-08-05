@@ -3,6 +3,7 @@ import {Category} from './model/Category';
 import {Task} from './model/Task';
 import {DataHandlerService} from './service/data-handler.service';
 import {Priority} from "./model/Priority";
+import {zip} from "rxjs";
 
 @Component({
     selector: 'app-root',
@@ -14,7 +15,14 @@ export class AppComponent implements OnInit {
     public tasks: Task[];
     public categories: Category[];
     public priorities: Priority[];
-    public selectedCategory: Category;
+
+    public totalTasksCountInCategory: number;
+    public completedCountInCategory: number;
+    public uncompletedCountInCategory: number;
+    public uncompletedTotalTasksCount: number
+
+    public showStat: boolean = true;
+    public selectedCategory: Category = null;
     public searchTasksText: string = '';
     public searchCategoryText: string = '';
     public priorityFilter: Priority;
@@ -30,14 +38,14 @@ export class AppComponent implements OnInit {
     }
     public onSelectCategory(category: Category) {
         this.selectedCategory = category;
-        this.updateTasks();
+        this.updateTasksAndStat()
     }
     public onUpdateTask(task: Task): void {
-        this.updateTasks();
+        this.updateTasksAndStat()
     }
     public onDeleteTask(task: Task): void {
         this.dataHandler.deleteTask(task.id).subscribe(cat => {
-            this.updateTasks()
+            this.updateTasksAndStat()
         });
     }
     public onDeleteCategory(category: Category): void {
@@ -53,15 +61,15 @@ export class AppComponent implements OnInit {
     }
     public onSearchTasks(searchString: string): void {
         this.searchTasksText = searchString;
-        this.updateTasks();
+        this.updateTasksAndStat()
     }
     public onFilterTaskByStatus(status: boolean): void {
         this.statusFilter = status;
-        this.updateTasks();
+        this.updateTasksAndStat()
     }
     public onFilterTasksByPriority(priority: Priority) {
         this.priorityFilter = priority;
-        this.updateTasks();
+        this.updateTasksAndStat()
     }
     public updateTasks() {
         this.dataHandler.searchTasks(
@@ -75,7 +83,7 @@ export class AppComponent implements OnInit {
     }
     public onAddTask(task: Task){
         this.dataHandler.addTask(task).subscribe(result => {
-            this.updateTasks();
+            this.updateTasksAndStat()
         });
     }
     public onAddCategory(title: string) {
@@ -91,4 +99,27 @@ export class AppComponent implements OnInit {
             this.categories = categories;
             });
     }
+    public updateTasksAndStat(){
+        this.updateTasks();
+        this.updateStat();
+    }
+
+    public updateStat() {
+        zip(
+            this.dataHandler.getTotalCountInCategory(this.selectedCategory),
+            this.dataHandler.getCompletedCountInCategory(this.selectedCategory),
+            this.dataHandler.getUncompletedCountInCategory(this.selectedCategory),
+            this.dataHandler.getUncompletedTotalCount())
+            .subscribe( array => {
+                this.totalTasksCountInCategory = array[0];
+                this.completedCountInCategory = array[1];
+                this.uncompletedCountInCategory = array[2];
+                this.uncompletedTotalTasksCount = array[3];
+            })
+    }
+
+    public toggleStat(showStat: boolean) {
+        this.showStat = showStat;
+    }
+
 }

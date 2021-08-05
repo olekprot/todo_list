@@ -27,6 +27,11 @@ import {TaskDatePipe} from './pipe/task-date.pipe';
 import {registerLocaleData} from '@angular/common';
 import localeUa from '@angular/common/locales/ru-UA';
 import {EditCategoryDialogComponent} from './dialog/edit-category-dialog/edit-category-dialog.component';
+import { FooterComponent } from './views/footer/footer.component';
+import { AboutDialogComponent } from './dialog/about/about.dialog.component';
+import { HeaderComponent } from './views/header/header.component';
+import { StatComponent } from './views/stat/stat.component';
+import { StatCardComponent } from './views/stat/stat-card/stat-card.component';
 
 registerLocaleData(localeUa);
 @NgModule({
@@ -37,7 +42,12 @@ registerLocaleData(localeUa);
         EditTaskDialogComponent,
         ConfirmDialogComponent,
         TaskDatePipe,
-        EditCategoryDialogComponent
+        EditCategoryDialogComponent,
+        FooterComponent,
+        AboutDialogComponent,
+        HeaderComponent,
+        StatComponent,
+        StatCardComponent
     ],
     imports: [
         BrowserModule,
@@ -58,7 +68,7 @@ registerLocaleData(localeUa);
         MatCheckboxModule
     ],
     providers: [],
-    entryComponents: [EditTaskDialogComponent, ConfirmDialogComponent, EditCategoryDialogComponent],
+    entryComponents: [EditTaskDialogComponent, ConfirmDialogComponent, EditCategoryDialogComponent, AboutDialogComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule {}
