@@ -32,7 +32,7 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"wrapper \">\n\n    <app-categories\n            (selectCategory)=\"onSelectCategory($event)\"\n            (deleteCategory)=\"onDeleteCategory($event)\"\n            (updateCategory)=\"onUpdateCategory($event)\"\n            (addCategory)=\"onAddCategory($event)\"\n            (searchCategory)=\"onSearchCategory($event)\"\n\n            [selectedCategory]=\"selectedCategory\"\n            [categories]=\"categories\">\n    </app-categories>\n\n    <div class=\"main-panel\">\n\n        <nav class=\"navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top \">\n            <app-header [categoryName]=\"selectedCategory ? selectedCategory.title: 'Все'\"\n            (toggleStat)=\"toggleStat($event)\"\n            [showStat]=\"showStat\"></app-header>\n        </nav>\n\n        <div class=\"content\">\n            <div class=\"container-fluid\">\n                <app-stat\n                        [totalTasksInCategory]=\"totalTasksCountInCategory\"\n                        [completeTasksInCategory]=\"completedCountInCategory\"\n                        [uncompleteTasksInCategory]=\"uncompletedCountInCategory\"\n                        [showStat]=\"showStat\"></app-stat>\n                <div class=\"row\">\n                    <div class=\"col-12\">\n                        <app-tasks (updateTask)=\"onUpdateTask($event)\"\n                                   (deleteTask)=\"onDeleteTask($event)\"\n                                   (selectCategory)=\"onSelectCategory($event)\"\n                                   (addTask)=\"onAddTask($event)\"\n\n                                   [selectedCategory]=\"selectedCategory\"\n                                   (filterByTitle)=\"onSearchTasks($event)\"\n                                   (filterByStatus)=\"onFilterTaskByStatus($event)\"\n                                   (filterByPriority)=\"onFilterTasksByPriority($event)\"\n\n                                   [tasks]=\"tasks\"\n                                   [priorities]=\"priorities\">\n                        </app-tasks>\n                    </div>\n                </div>\n            </div>\n        </div>\n    <app-footer></app-footer>\n    </div>\n</div>\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("\n    <div class=\"wrapper \">\n\n        <app-categories\n                (selectCategory)=\"onSelectCategory($event)\"\n                (deleteCategory)=\"onDeleteCategory($event)\"\n                (updateCategory)=\"onUpdateCategory($event)\"\n                (addCategory)=\"onAddCategory($event)\"\n                (searchCategory)=\"onSearchCategory($event)\"\n                [categoryMap]=\"categoryMap\"\n                [uncompletedTotal]=\"uncompletedTotalTasksCount\"\n                [selectedCategory]=\"selectedCategory\"\n                [categories]=\"categories\">\n        </app-categories>\n\n        <div class=\"main-panel\">\n\n            <nav class=\"navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top \">\n                <app-header [categoryName]=\"selectedCategory ? selectedCategory.title: 'Все'\"\n                            (toggleStat)=\"toggleStat($event)\"\n                            [showStat]=\"showStat\"></app-header>\n            </nav>\n\n            <div class=\"content\">\n                <div class=\"container-fluid\">\n                    <app-stat\n                            [totalTasksInCategory]=\"totalTasksCountInCategory\"\n                            [completeTasksInCategory]=\"completedCountInCategory\"\n                            [uncompleteTasksInCategory]=\"uncompletedCountInCategory\"\n                            [showStat]=\"showStat\"></app-stat>\n                    <div class=\"row\">\n                        <div class=\"col-12\">\n                            <app-tasks (updateTask)=\"onUpdateTask($event)\"\n                                       (deleteTask)=\"onDeleteTask($event)\"\n                                       (selectCategory)=\"onSelectCategory($event)\"\n                                       (addTask)=\"onAddTask($event)\"\n\n                                       [selectedCategory]=\"selectedCategory\"\n                                       (filterByTitle)=\"onSearchTasks($event)\"\n                                       (filterByStatus)=\"onFilterTaskByStatus($event)\"\n                                       (filterByPriority)=\"onFilterTasksByPriority($event)\"\n\n                                       [tasks]=\"tasks\"\n                                       [priorities]=\"priorities\">\n                            </app-tasks>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <app-footer></app-footer>\n        </div>\n    </div>\n\n\n\n");
 
 /***/ }),
 
@@ -97,7 +97,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"sidebar\"  data-background-color=\"white\" data-color=\"purple\">\n    <div id=\"categories\">\n        <div class=\"logo\">\n            <span class=\"nav-title\">Категории</span>\n            <span class=\"add-icon-area\">\n                <button class=\"add-icon\" mat-icon-button (click)=\"openAddDialog()\">\n                    <mat-icon>add</mat-icon>\n                </button>\n            </span>\n        </div>\n        <div class=\"sidebar-wrapper\">\n            <ul class=\"nav\">\n                <div class=\"search-category-area\">\n                    <mat-form-field class=\"example-full-width\">\n                        <input #inputSearchCategory\n                               (keydown.escape)=\"searchCategoryTitle = ''; search()\"\n                               (keyup)=\"search()\"\n                               [(ngModel)]=\"searchCategoryTitle\"\n                               matInput maxlength=\"256\" placeholder=\"Поиск категории\">\n                        <button (click)=\"searchCategoryTitle = ''; search()\"\n                                *ngIf=\"inputSearchCategory.value.trim().length > 0\" aria-label=\"Clear\"\n                                class=\"search-category-button size25 gray\"\n                                mat-button mat-icon-button matSuffix>\n                            <mat-icon>clear</mat-icon>\n                        </button>\n                    </mat-form-field>\n                </div>\n                <li class=\"nav-item category\" (click)=\"showTasksByCategory(null)\" [class.active]=\"selectedCategory\">\n                    <a class=\"nav-link pointer\">\n                        <span class=\"all-category-title\">Все</span>\n                    </a>\n                </li>\n                <div class=\"line\"></div>\n                <div *ngIf=\"categories.length === 0\">\n                    <p class=\"not-found\">Ничего не найдено</p>\n                </div>\n                <li (click)=\"showTasksByCategory(category)\"\n                    *ngFor=\"let category of categories; let index = index\"  [class.active]=\"category === selectedCategory\"\n                    (click)=\"showTasksByCategory(category)\"\n                    (mouseleave)=\"showEditIcon(null)\"\n                    (mouseenter)=\"showEditIcon(index)\"\n\n                    class=\"nav-item pointer\">\n                    <a class=\"nav-link\">\n                        <span class=\"category-title\">{{category.title}}</span>\n                        <span class=\"edit-category-icon-area\">\n                            <mat-icon *ngIf=\"indexMouseMove === index\" (click)=\"$event.stopPropagation(); openEditDialog(category)\"\n                                      class=\"edit-category-icon\"> edit\n                            </mat-icon>\n                        </span>\n                    </a>\n                </li>\n            </ul>\n        </div>\n        <div class=\"sidebar-background\"></div>\n    </div>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"sidebar\"  data-background-color=\"white\" data-color=\"purple\">\n    <div id=\"categories\">\n        <div class=\"logo\">\n            <span class=\"nav-title\">Категории</span>\n            <span class=\"add-icon-area\">\n                <button class=\"add-icon\" mat-icon-button (click)=\"openAddDialog()\">\n                    <mat-icon>add</mat-icon>\n                </button>\n            </span>\n        </div>\n        <div class=\"sidebar-wrapper\">\n            <ul class=\"nav\">\n                <div class=\"search-category-area\">\n                    <mat-form-field class=\"example-full-width\">\n                        <input #inputSearchCategory\n                               (keydown.escape)=\"searchCategoryTitle = ''; search()\"\n                               (keyup)=\"search()\"\n                               [(ngModel)]=\"searchCategoryTitle\"\n                               matInput maxlength=\"256\" placeholder=\"Поиск категории\">\n                        <button (click)=\"searchCategoryTitle = ''; search()\"\n                                *ngIf=\"inputSearchCategory.value.trim().length > 0\" aria-label=\"Clear\"\n                                class=\"search-category-button size25 gray\"\n                                mat-button mat-icon-button matSuffix>\n                            <mat-icon>clear</mat-icon>\n                        </button>\n                    </mat-form-field>\n                </div>\n                <li class=\"nav-item category\" (click)=\"showTasksByCategory(null)\" [class.active]=\"selectedCategory\">\n                    <a class=\"nav-link pointer\">\n                        <span class=\"all-category-title\">Все</span>\n                        <span class=\"uncompleted-count\">{{uncompletedTotal}}</span>\n                    </a>\n                </li>\n                <div class=\"line\"></div>\n                <div *ngIf=\"categories.length === 0\">\n                    <p class=\"not-found\">Ничего не найдено</p>\n                </div>\n                <li (click)=\"showTasksByCategory(mapValue.key)\"\n                    *ngFor=\"let mapValue of selectedCategoryMap | keyvalue; let index = index\"\n                    [class.active]=\"mapValue.key === selectedCategory\"\n                    (click)=\"showTasksByCategory(mapValue.key)\"\n                    (mouseleave)=\"showEditIcon(null)\"\n                    (mouseenter)=\"showEditIcon(index)\"\n\n                    class=\"nav-item pointer\">\n                    <a class=\"nav-link\">\n                        <span class=\"category-title\">{{mapValue.key.title}}</span>\n                        <span class=\"edit-category-icon-area\">\n                            <mat-icon *ngIf=\"indexMouseMove === index\" (click)=\"$event.stopPropagation(); openEditDialog(mapValue.key)\"\n                                      class=\"edit-category-icon\"> edit\n                            </mat-icon>\n                        </span>\n                        <span class=\"uncompleted-count\"> {{mapValue.value}}</span>\n                    </a>\n                </li>\n            </ul>\n        </div>\n        <div class=\"sidebar-background\"></div>\n    </div>\n</div>\n");
 
 /***/ }),
 
@@ -434,6 +434,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm5/core.js");
 /* harmony import */ var _service_data_handler_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./service/data-handler.service */ "./src/app/service/data-handler.service.ts");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+
 
 
 
@@ -442,6 +444,7 @@ var AppComponent = (function () {
     function AppComponent(dataHandler) {
         this.dataHandler = dataHandler;
         this.title = 'Todo';
+        this.categoryMap = new Map();
         this.showStat = true;
         this.selectedCategory = null;
         this.searchTasksText = '';
@@ -451,18 +454,41 @@ var AppComponent = (function () {
         var _this = this;
         this.dataHandler.getAllPriorities().subscribe(function (priorities) { return _this.priorities = priorities; });
         this.dataHandler.getAllCategories().subscribe(function (categories) { return _this.categories = categories; });
+        this.fillCategories();
         this.onSelectCategory(null);
+    };
+    AppComponent.prototype.fillCategories = function () {
+        var _this = this;
+        if (this.categoryMap) {
+            this.categoryMap.clear();
+            this.categories = this.categories.sort(function (a, b) { return a.title.localeCompare(b.title); });
+            this.categories.forEach(function (cat) {
+                _this.dataHandler.getUncompletedCountInCategory(cat).subscribe(function (count) { return _this.categoryMap.set(cat, count); });
+            });
+        }
     };
     AppComponent.prototype.onSelectCategory = function (category) {
         this.selectedCategory = category;
         this.updateTasksAndStat();
     };
     AppComponent.prototype.onUpdateTask = function (task) {
-        this.updateTasksAndStat();
+        var _this = this;
+        this.dataHandler.updateTask(task).subscribe(function () {
+            _this.fillCategories();
+            _this.updateTasksAndStat();
+        });
     };
     AppComponent.prototype.onDeleteTask = function (task) {
         var _this = this;
-        this.dataHandler.deleteTask(task.id).subscribe(function (cat) {
+        this.dataHandler.deleteTask(task.id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["concatMap"])(function (task) {
+            return _this.dataHandler.getUncompletedCountInCategory(task.category).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (count) {
+                return ({ t: task, count: count });
+            }));
+        })).subscribe(function (result) {
+            var t = result.t;
+            if (t.category) {
+                _this.categoryMap.set(t.category, result.count);
+            }
             _this.updateTasksAndStat();
         });
     };
@@ -470,7 +496,9 @@ var AppComponent = (function () {
         var _this = this;
         this.dataHandler.deleteCategory(category.id).subscribe(function (cat) {
             _this.selectedCategory = null;
+            _this.categoryMap.delete(cat);
             _this.onSearchCategory(_this.searchCategoryText);
+            _this.updateTasksAndStat();
         });
     };
     AppComponent.prototype.onUpdateCategory = function (category) {
@@ -499,23 +527,33 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.onAddTask = function (task) {
         var _this = this;
-        this.dataHandler.addTask(task).subscribe(function (result) {
+        this.dataHandler.addTask(task).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["concatMap"])(function (task) {
+            return _this.dataHandler.getUncompletedCountInCategory(task.category).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (count) {
+                return ({ t: task, count: count });
+            }));
+        })).subscribe(function (result) {
+            var t = result.t;
+            if (t.category) {
+                _this.categoryMap.set(t.category, result.count);
+            }
             _this.updateTasksAndStat();
         });
     };
     AppComponent.prototype.onAddCategory = function (title) {
         var _this = this;
-        this.dataHandler.addCategory(title).subscribe(function () { return _this.updateCategories(); });
+        this.dataHandler.addCategory(title).subscribe(function () { return _this.fillCategories(); });
     };
     AppComponent.prototype.updateCategories = function () {
         var _this = this;
         this.dataHandler.getAllCategories().subscribe(function (categories) { return _this.categories = categories; });
+        console.log(this.categories);
     };
     AppComponent.prototype.onSearchCategory = function (title) {
         var _this = this;
         this.searchCategoryText = title;
         this.dataHandler.searchCategories(title).subscribe(function (categories) {
             _this.categories = categories;
+            _this.fillCategories();
         });
     };
     AppComponent.prototype.updateTasksAndStat = function () {
@@ -590,6 +628,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_header_header_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./views/header/header.component */ "./src/app/views/header/header.component.ts");
 /* harmony import */ var _views_stat_stat_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./views/stat/stat.component */ "./src/app/views/stat/stat.component.ts");
 /* harmony import */ var _views_stat_stat_card_stat_card_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./views/stat/stat-card/stat-card.component */ "./src/app/views/stat/stat-card/stat-card.component.ts");
+/* harmony import */ var ng_sidebar__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ng-sidebar */ "./node_modules/ng-sidebar/__ivy_ngcc__/lib_esmodule/index.js");
+
 
 
 
@@ -653,7 +693,8 @@ var AppModule = (function () {
                 _angular_material_select__WEBPACK_IMPORTED_MODULE_11__["MatSelectModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatDatepickerModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatNativeDateModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatCheckboxModule"]
+                _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatCheckboxModule"],
+                ng_sidebar__WEBPACK_IMPORTED_MODULE_27__["SidebarModule"].forRoot()
             ],
             providers: [],
             entryComponents: [_dialog_edit_task_dialog_edit_task_dialog_component__WEBPACK_IMPORTED_MODULE_14__["EditTaskDialogComponent"], _dialog_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_17__["ConfirmDialogComponent"], _dialog_edit_category_dialog_edit_category_dialog_component__WEBPACK_IMPORTED_MODULE_21__["EditCategoryDialogComponent"], _dialog_about_about_dialog_component__WEBPACK_IMPORTED_MODULE_23__["AboutDialogComponent"]],
@@ -1596,7 +1637,7 @@ var DataHandlerService = (function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".pointer {\n    cursor: pointer;\n}\n.edit-category-icon-area{\n    width: 15%;\n    display: inline-block;\n    text-align: left;\n    font-size: 13px;\n}\n.category-title{\n    width: 70%;\n    display: inline-block;\n    font-size: 16px;\n}\n.all-category-title{\n    width: 85%;\n    display: inline-block;\n    font-size: 16px;\n}\n.edit-category-icon{\n    color: #dadada;\n}\n.add-icon{\n    cursor: pointer;\n    font-size: 25px;\n    vertical-align: middle;\n}\nspan.add-icon-area{\n    width: 15%;\n    display: inline-block;\n    text-align: left;\n}\n#categories{\n    width: 100%;\n    overflow-x: hidden;\n}\n.nav-title{\n    width: 85%;\n    display: inline-block;\n    font-size: 20px;\n    text-align: center;\n    vertical-align: middle;\n}\n.search-category-area {\n    padding-left: 20px;\n    padding-right: 20px;\n    border-radius: 6px;\n}\n.search-category-button {\n    margin-left: 10px;\n    font-size: 25px;\n}\n.sidebar-background {\n    background-image: url('sidebar-1.jpg');\n}\n.sidebar-background .mat-form-field {\n    padding-bottom: 0;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3MvY2F0ZWdvcmllcy9jYXRlZ29yaWVzLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxlQUFlO0FBQ25CO0FBQ0E7SUFDSSxVQUFVO0lBQ1YscUJBQXFCO0lBQ3JCLGdCQUFnQjtJQUNoQixlQUFlO0FBQ25CO0FBQ0E7SUFDSSxVQUFVO0lBQ1YscUJBQXFCO0lBQ3JCLGVBQWU7QUFDbkI7QUFDQTtJQUNJLFVBQVU7SUFDVixxQkFBcUI7SUFDckIsZUFBZTtBQUNuQjtBQUNBO0lBQ0ksY0FBYztBQUNsQjtBQUNBO0lBQ0ksZUFBZTtJQUNmLGVBQWU7SUFDZixzQkFBc0I7QUFDMUI7QUFDQTtJQUNJLFVBQVU7SUFDVixxQkFBcUI7SUFDckIsZ0JBQWdCO0FBQ3BCO0FBQ0E7SUFDSSxXQUFXO0lBQ1gsa0JBQWtCO0FBQ3RCO0FBQ0E7SUFDSSxVQUFVO0lBQ1YscUJBQXFCO0lBQ3JCLGVBQWU7SUFDZixrQkFBa0I7SUFDbEIsc0JBQXNCO0FBQzFCO0FBQ0E7SUFDSSxrQkFBa0I7SUFDbEIsbUJBQW1CO0lBQ25CLGtCQUFrQjtBQUN0QjtBQUNBO0lBQ0ksaUJBQWlCO0lBQ2pCLGVBQWU7QUFDbkI7QUFDQTtJQUNJLHNDQUEwRDtBQUM5RDtBQUNBO0lBQ0ksaUJBQWlCO0FBQ3JCIiwiZmlsZSI6InNyYy9hcHAvdmlld3MvY2F0ZWdvcmllcy9jYXRlZ29yaWVzLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucG9pbnRlciB7XG4gICAgY3Vyc29yOiBwb2ludGVyO1xufVxuLmVkaXQtY2F0ZWdvcnktaWNvbi1hcmVhe1xuICAgIHdpZHRoOiAxNSU7XG4gICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICAgIHRleHQtYWxpZ246IGxlZnQ7XG4gICAgZm9udC1zaXplOiAxM3B4O1xufVxuLmNhdGVnb3J5LXRpdGxle1xuICAgIHdpZHRoOiA3MCU7XG4gICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICAgIGZvbnQtc2l6ZTogMTZweDtcbn1cbi5hbGwtY2F0ZWdvcnktdGl0bGV7XG4gICAgd2lkdGg6IDg1JTtcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gICAgZm9udC1zaXplOiAxNnB4O1xufVxuLmVkaXQtY2F0ZWdvcnktaWNvbntcbiAgICBjb2xvcjogI2RhZGFkYTtcbn1cbi5hZGQtaWNvbntcbiAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgZm9udC1zaXplOiAyNXB4O1xuICAgIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XG59XG5zcGFuLmFkZC1pY29uLWFyZWF7XG4gICAgd2lkdGg6IDE1JTtcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gICAgdGV4dC1hbGlnbjogbGVmdDtcbn1cbiNjYXRlZ29yaWVze1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIG92ZXJmbG93LXg6IGhpZGRlbjtcbn1cbi5uYXYtdGl0bGV7XG4gICAgd2lkdGg6IDg1JTtcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gICAgZm9udC1zaXplOiAyMHB4O1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xufVxuLnNlYXJjaC1jYXRlZ29yeS1hcmVhIHtcbiAgICBwYWRkaW5nLWxlZnQ6IDIwcHg7XG4gICAgcGFkZGluZy1yaWdodDogMjBweDtcbiAgICBib3JkZXItcmFkaXVzOiA2cHg7XG59XG4uc2VhcmNoLWNhdGVnb3J5LWJ1dHRvbiB7XG4gICAgbWFyZ2luLWxlZnQ6IDEwcHg7XG4gICAgZm9udC1zaXplOiAyNXB4O1xufVxuLnNpZGViYXItYmFja2dyb3VuZCB7XG4gICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiLi4vLi4vLi4vYXNzZXRzL2ltZy9zaWRlYmFyLTEuanBnXCIpO1xufVxuLnNpZGViYXItYmFja2dyb3VuZCAubWF0LWZvcm0tZmllbGQge1xuICAgIHBhZGRpbmctYm90dG9tOiAwO1xufVxuIl19 */");
+/* harmony default export */ __webpack_exports__["default"] = (".pointer {\n    cursor: pointer;\n}\n.edit-category-icon-area{\n    width: 15%;\n    display: inline-block;\n    text-align: left;\n    font-size: 13px;\n}\n.category-title{\n    width: 70%;\n    display: inline-block;\n    font-size: 16px;\n}\n.all-category-title{\n    width: 85%;\n    display: inline-block;\n    font-size: 16px;\n}\n.edit-category-icon{\n    color: #dadada;\n}\n.add-icon{\n    cursor: pointer;\n    font-size: 25px;\n    vertical-align: middle;\n}\nspan.add-icon-area{\n    width: 15%;\n    display: inline-block;\n    text-align: left;\n}\n#categories{\n    width: 100%;\n    overflow-x: hidden;\n}\n.nav-title{\n    width: 85%;\n    display: inline-block;\n    font-size: 20px;\n    text-align: center;\n    vertical-align: middle;\n}\n.search-category-area {\n    padding-left: 20px;\n    padding-right: 20px;\n    border-radius: 6px;\n}\n.search-category-button {\n    margin-left: 10px;\n    font-size: 25px;\n}\n.sidebar-background {\n    background-image: url('sidebar-1.jpg');\n}\n.sidebar-background .mat-form-field {\n    padding-bottom: 0;\n}\n.uncompleted-count {\n    background-color: #eaeaea;\n    border-radius: 3px;\n    padding: 5px;\n    color: black;\n    width: 15%;\n    display: inline-block;\n    text-align: center;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3MvY2F0ZWdvcmllcy9jYXRlZ29yaWVzLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxlQUFlO0FBQ25CO0FBQ0E7SUFDSSxVQUFVO0lBQ1YscUJBQXFCO0lBQ3JCLGdCQUFnQjtJQUNoQixlQUFlO0FBQ25CO0FBQ0E7SUFDSSxVQUFVO0lBQ1YscUJBQXFCO0lBQ3JCLGVBQWU7QUFDbkI7QUFDQTtJQUNJLFVBQVU7SUFDVixxQkFBcUI7SUFDckIsZUFBZTtBQUNuQjtBQUNBO0lBQ0ksY0FBYztBQUNsQjtBQUNBO0lBQ0ksZUFBZTtJQUNmLGVBQWU7SUFDZixzQkFBc0I7QUFDMUI7QUFDQTtJQUNJLFVBQVU7SUFDVixxQkFBcUI7SUFDckIsZ0JBQWdCO0FBQ3BCO0FBQ0E7SUFDSSxXQUFXO0lBQ1gsa0JBQWtCO0FBQ3RCO0FBQ0E7SUFDSSxVQUFVO0lBQ1YscUJBQXFCO0lBQ3JCLGVBQWU7SUFDZixrQkFBa0I7SUFDbEIsc0JBQXNCO0FBQzFCO0FBQ0E7SUFDSSxrQkFBa0I7SUFDbEIsbUJBQW1CO0lBQ25CLGtCQUFrQjtBQUN0QjtBQUNBO0lBQ0ksaUJBQWlCO0lBQ2pCLGVBQWU7QUFDbkI7QUFDQTtJQUNJLHNDQUEwRDtBQUM5RDtBQUNBO0lBQ0ksaUJBQWlCO0FBQ3JCO0FBQ0E7SUFDSSx5QkFBeUI7SUFDekIsa0JBQWtCO0lBQ2xCLFlBQVk7SUFDWixZQUFZO0lBQ1osVUFBVTtJQUNWLHFCQUFxQjtJQUNyQixrQkFBa0I7QUFDdEIiLCJmaWxlIjoic3JjL2FwcC92aWV3cy9jYXRlZ29yaWVzL2NhdGVnb3JpZXMuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5wb2ludGVyIHtcbiAgICBjdXJzb3I6IHBvaW50ZXI7XG59XG4uZWRpdC1jYXRlZ29yeS1pY29uLWFyZWF7XG4gICAgd2lkdGg6IDE1JTtcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gICAgdGV4dC1hbGlnbjogbGVmdDtcbiAgICBmb250LXNpemU6IDEzcHg7XG59XG4uY2F0ZWdvcnktdGl0bGV7XG4gICAgd2lkdGg6IDcwJTtcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gICAgZm9udC1zaXplOiAxNnB4O1xufVxuLmFsbC1jYXRlZ29yeS10aXRsZXtcbiAgICB3aWR0aDogODUlO1xuICAgIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbiAgICBmb250LXNpemU6IDE2cHg7XG59XG4uZWRpdC1jYXRlZ29yeS1pY29ue1xuICAgIGNvbG9yOiAjZGFkYWRhO1xufVxuLmFkZC1pY29ue1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbiAgICBmb250LXNpemU6IDI1cHg7XG4gICAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcbn1cbnNwYW4uYWRkLWljb24tYXJlYXtcbiAgICB3aWR0aDogMTUlO1xuICAgIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbiAgICB0ZXh0LWFsaWduOiBsZWZ0O1xufVxuI2NhdGVnb3JpZXN7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgb3ZlcmZsb3cteDogaGlkZGVuO1xufVxuLm5hdi10aXRsZXtcbiAgICB3aWR0aDogODUlO1xuICAgIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbiAgICBmb250LXNpemU6IDIwcHg7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XG59XG4uc2VhcmNoLWNhdGVnb3J5LWFyZWEge1xuICAgIHBhZGRpbmctbGVmdDogMjBweDtcbiAgICBwYWRkaW5nLXJpZ2h0OiAyMHB4O1xuICAgIGJvcmRlci1yYWRpdXM6IDZweDtcbn1cbi5zZWFyY2gtY2F0ZWdvcnktYnV0dG9uIHtcbiAgICBtYXJnaW4tbGVmdDogMTBweDtcbiAgICBmb250LXNpemU6IDI1cHg7XG59XG4uc2lkZWJhci1iYWNrZ3JvdW5kIHtcbiAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCIuLi8uLi8uLi9hc3NldHMvaW1nL3NpZGViYXItMS5qcGdcIik7XG59XG4uc2lkZWJhci1iYWNrZ3JvdW5kIC5tYXQtZm9ybS1maWVsZCB7XG4gICAgcGFkZGluZy1ib3R0b206IDA7XG59XG4udW5jb21wbGV0ZWQtY291bnQge1xuICAgIGJhY2tncm91bmQtY29sb3I6ICNlYWVhZWE7XG4gICAgYm9yZGVyLXJhZGl1czogM3B4O1xuICAgIHBhZGRpbmc6IDVweDtcbiAgICBjb2xvcjogYmxhY2s7XG4gICAgd2lkdGg6IDE1JTtcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuIl19 */");
 
 /***/ }),
 
@@ -1634,6 +1675,13 @@ var CategoriesComponent = (function () {
         this.addCategory = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
         this.searchCategory = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
     }
+    Object.defineProperty(CategoriesComponent.prototype, "setCategoryMap", {
+        set: function (categoryMap) {
+            this.selectedCategoryMap = categoryMap;
+        },
+        enumerable: true,
+        configurable: true
+    });
     CategoriesComponent.prototype.ngOnInit = function () {
     };
     CategoriesComponent.prototype.showTasksByCategory = function (category) {
@@ -1688,6 +1736,19 @@ var CategoriesComponent = (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Array)
     ], CategoriesComponent.prototype, "categories", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _model_Category__WEBPACK_IMPORTED_MODULE_4__["Category"])
+    ], CategoriesComponent.prototype, "selectedCategory", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('categoryMap'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Map),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Map])
+    ], CategoriesComponent.prototype, "setCategoryMap", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
+    ], CategoriesComponent.prototype, "uncompletedTotal", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], CategoriesComponent.prototype, "selectCategory", void 0);
@@ -1699,10 +1760,6 @@ var CategoriesComponent = (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], CategoriesComponent.prototype, "updateCategory", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _model_Category__WEBPACK_IMPORTED_MODULE_4__["Category"])
-    ], CategoriesComponent.prototype, "selectedCategory", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
