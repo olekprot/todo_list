@@ -31,7 +31,7 @@
     "typeRoots": ["./node_modules/@types"],
     "types": ["chosen-js", "jest", "jquery", "datatables.net"],
     "lib": ["es7", "dom", "es2017.intl", "es2018.intl", "esnext.intl"],
-    "module": "esnext", // заменил на данные с базового проекта. Не работало без этого
+    "module": "es2020", // заменил на данные с базового проекта. Не работало без этого
     "inlineSources": true,
     "importHelpers": true
   },
