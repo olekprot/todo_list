@@ -18,7 +18,7 @@ import {Priority} from "../../model/Priority";
 export class TasksComponent implements OnInit {
     // поля для таблицы (те, что отображают данные из задачи - должны совпадать с названиями переменных класса)
     public displayedColumns: string[] = ['color', 'id', 'title', 'date', 'priority', 'category', 'operations', 'select'];
-    private dataSource: MatTableDataSource<Task>; // контейнер - источник данных для таблицы
+    public dataSource: MatTableDataSource<Task>; // контейнер - источник данных для таблицы
 
     @ViewChild(MatPaginator) private paginator: MatPaginator;
     @ViewChild(MatSort) private sort: MatSort;
