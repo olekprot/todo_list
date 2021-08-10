@@ -13,20 +13,27 @@ import {OperType} from '../../dialog/OperType';
 export class CategoriesComponent implements OnInit {
     @Input()
     public categories: Category[];
+    @Input()
+    public selectedCategory: Category;
+    @Input('categoryMap')
+    set setCategoryMap(categoryMap: Map<Category, number>) {
+        this.selectedCategoryMap = categoryMap;
+    }
+    @Input()
+    public uncompletedTotal: number;
     @Output()
     public selectCategory = new EventEmitter<Category>();
     @Output()
     public deleteCategory = new EventEmitter<Category>();
     @Output()
     public updateCategory = new EventEmitter<Category>();
-    @Input()
-    public selectedCategory: Category;
     @Output()
     public addCategory = new EventEmitter<string>();
     @Output()
     public searchCategory = new EventEmitter<string>();
     public indexMouseMove: number;
     public showEditIconCategory: boolean;
+    public selectedCategoryMap: Map<Category, number>
     public searchCategoryTitle: string;
     constructor(public dataHandler: DataHandlerService, public dialog: MatDialog) {}
 
