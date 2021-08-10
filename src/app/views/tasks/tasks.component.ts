@@ -20,8 +20,8 @@ export class TasksComponent implements OnInit {
     public displayedColumns: string[] = ['color', 'id', 'title', 'date', 'priority', 'category', 'operations', 'select'];
     private dataSource: MatTableDataSource<Task>; // контейнер - источник данных для таблицы
 
-    @ViewChild(MatPaginator, {static: false}) private paginator: MatPaginator;
-    @ViewChild(MatSort, {static: false}) private sort: MatSort;
+    @ViewChild(MatPaginator) private paginator: MatPaginator;
+    @ViewChild(MatSort) private sort: MatSort;
     public tasks: Task[];
     public priorities: Priority[];
     public searchTaskText: string;
