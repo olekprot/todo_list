@@ -39,7 +39,7 @@ export class EditCategoryDialogComponent implements OnInit {
             },
             autoFocus: false
         });
-        dialogRef.afterClosed().subscribe((result) => {
+        dialogRef.afterClosed().subscribe((result):any => {
             if (result) {
                 this.dialogRef.close('delete');
             }

@@ -173,13 +173,13 @@ export class TasksComponent implements OnInit {
     public onFilterByTitle(): void{
         this.filterByTitle.emit(this.searchTaskText);
     }
-    public onFilterByStatus(value: boolean): void {
+    public onFilterByStatus(value: boolean) {
         if (value !== this.selectedStatusFilter){
             this.selectedStatusFilter = value;
             this.filterByStatus.emit(this.selectedStatusFilter);
         }
     }
-    public onFilterByPriority(value: Priority): void {
+    public onFilterByPriority(value: Priority) {
         if (value !== this.selectedPriorityFilter) {
             this.selectedPriorityFilter = value;
             this.filterByPriority.emit(this.selectedPriorityFilter);

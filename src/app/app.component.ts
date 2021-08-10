@@ -8,7 +8,7 @@ import {concatMap, map} from "rxjs/operators";
 
 @Component({
     selector: 'app-root',
-    styles: [],
+    styles: ['nav { z-index: 0 !important; }'], // create new file for css
     templateUrl: 'app.component.html'
 })
 export class AppComponent implements OnInit {

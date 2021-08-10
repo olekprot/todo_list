@@ -16,7 +16,7 @@ export class EditTaskDialogComponent implements OnInit {
         public dialogRef: MatDialogRef<EditTaskDialogComponent>,
         @Inject(MAT_DIALOG_DATA) private date: [Task, string],
         public dataHandler: DataHandlerService,
-        private dialog: MatDialog
+        public dialog: MatDialog
     ) {}
     public categories: Category[];
     public priorities: Priority[];
