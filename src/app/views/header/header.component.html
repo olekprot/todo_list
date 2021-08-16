@@ -1,6 +1,9 @@
 
     <div class="row settings">
         <div class="col-8 text-left align-self-top">
+            <button mat-icon-button type="button" (click)="onToggleMenu()">
+                <mat-icon>menu</mat-icon>
+            </button>
             <p class="navbar-brand">{{categoryName}}</p>
             <p class="link navbar-brand" (click)="onToggleStat()" *ngIf="showStat">Скрыть статистику</p>
             <p class="link navbar-brand" (click)="onToggleStat()" *ngIf="!showStat">Показать статистику</p>
@@ -19,10 +22,11 @@
             <button mat-icon-button  class="header-icon" (click)="showSettings()">
                 <mat-icon>settings</mat-icon>
             </button>
-            <button mat-icon-button   class="header-icon">
+            <button mat-icon-button   class="header-icon" (click)="showIntroHelp()">
                 <mat-icon>help</mat-icon>
             </button>
         </div>
-
     </div>
+
+
 

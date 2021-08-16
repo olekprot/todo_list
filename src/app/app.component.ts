@@ -5,6 +5,7 @@ import {DataHandlerService} from './service/data-handler.service';
 import {Priority} from "./model/Priority";
 import {zip} from "rxjs";
 import {concatMap, map} from "rxjs/operators";
+import {IntroService} from "./service/intro.service";
 
 @Component({
     selector: 'app-root',
@@ -12,7 +13,7 @@ import {concatMap, map} from "rxjs/operators";
     templateUrl: 'app.component.html'
 })
 export class AppComponent implements OnInit {
-    public title = 'Todo';
+    public title = 'TestTODO';
     public categoryMap = new Map<Category, number>();
     public tasks: Task[];
     public categories: Category[];
@@ -30,8 +31,16 @@ export class AppComponent implements OnInit {
     public priorityFilter: Priority;
     public statusFilter: boolean;
 
+    public menuOpened: boolean;
+    public menuMode: any;
+    public menuPosition: any;
+    public showBackdrop: boolean;
 
-    constructor(public dataHandler: DataHandlerService) {}
+
+    constructor(public dataHandler: DataHandlerService,
+                public  introService: IntroService) {
+        this.setMenuValues()
+    }
 
     public ngOnInit(): void {
         // this.dataHandler.getAllTasks().subscribe((tasks) => this.tasks = tasks);
@@ -39,6 +48,7 @@ export class AppComponent implements OnInit {
         this.dataHandler.getAllCategories().subscribe((categories) => this.categories = categories);
         this.fillCategories();
         this.onSelectCategory(null);
+        this.introService.startIntroJS(true);
     }
     public fillCategories() {
         if (this.categoryMap) {
@@ -162,6 +172,18 @@ export class AppComponent implements OnInit {
 
     public toggleStat(showStat: boolean) {
         this.showStat = showStat;
+    }
+    public onClosedMenu(){
+        this.menuOpened = false;
+    }
+    public setMenuValues() {
+        this.menuPosition = 'left';
+        this.menuOpened = true;
+        this.menuMode = 'push';
+        this.showBackdrop = false;
+    }
+    public toggleMenu(){
+        this.menuOpened = !this.menuOpened;
     }
 
 }
