@@ -24,7 +24,6 @@ export class IntroService {
           nextLabel: 'след. >',
           prevLabel: '< пред.',
           doneLabel: 'Выход',
-          skipLabel: 'Выход',
           exitOnEsc: true,
           exitOnOverlayClick: false
         });
