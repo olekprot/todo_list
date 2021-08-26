@@ -43,26 +43,28 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-    <div class="col-md-5 col-12">
+    <div class="col-md-5 col-12" [ngClass]="{'text-center': isMobile, 'text-left': !isMobile}">
         <button mat-raised-button color="primary"
                 (click)="onConfirm()"
-                [disabled]="inputTitle.value.trim().length==0">
+                [disabled]="inputTitle.value.trim().length==0"
+                class="edit-task_button">
             Сохранить
         </button>
-        <button mat-raised-button (click)="onCancel()">
+        <button mat-raised-button (click)="onCancel()" class="edit-task_button">
             Отмена
         </button>
     </div>
-    <div class="col-md-7 col-12 text-right">
-        <button mat-button class="green" (click)="complete()" *ngIf="!task.completed && task.id" >
+    <div class="col-md-7 col-12 text-right"
+         [ngClass]="{'text-center': isMobile, 'text-right': !isMobile}">
+        <button mat-button class="green edit-task_button" (click)="complete()" *ngIf="!task.completed &&  task.id" >
             Завершить задачу
         </button>
-        <button mat-button class="green" (click)="activate()" *ngIf="task.completed">
+        <button mat-button class="green edit-task_button" (click)="activate()" *ngIf="task.completed">
             Активировать
         </button>
-        <button mat-button class="red" (click)="delete()" *ngIf="task.id">
+        <button *ngIf="task.id" mat-button class="red edit-task_button" (click)="delete()" >
             Удалить задачу
         </button>
-    </div>
 
+    </div>
 </mat-dialog-actions>

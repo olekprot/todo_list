@@ -4,6 +4,7 @@ import {EditCategoryDialogComponent} from '../../dialog/edit-category-dialog/edi
 import {Category} from '../../model/Category';
 import {DataHandlerService} from '../../service/data-handler.service';
 import {OperType} from '../../dialog/OperType';
+import {DeviceDetectorService} from "ngx-device-detector";
 
 @Component({
     selector: 'app-categories',
@@ -15,6 +16,7 @@ export class CategoriesComponent implements OnInit {
     public categories: Category[];
     @Input()
     public selectedCategory: Category;
+
     @Input('categoryMap')
     set setCategoryMap(categoryMap: Map<Category, number>) {
         this.selectedCategoryMap = categoryMap;
@@ -35,7 +37,16 @@ export class CategoriesComponent implements OnInit {
     public showEditIconCategory: boolean;
     public selectedCategoryMap: Map<Category, number>
     public searchCategoryTitle: string;
-    constructor(public dataHandler: DataHandlerService, public dialog: MatDialog) {}
+
+    public isMobile: boolean;
+    public isTablet: boolean;
+
+    constructor(public dataHandler: DataHandlerService,
+                public dialog: MatDialog,
+                public deviceService: DeviceDetectorService) {
+        this.isMobile = deviceService.isMobile();
+        this.isTablet = deviceService.isTablet();
+    }
 
     // метод вызывается автоматически после инициализации компонента
     public ngOnInit(): void {

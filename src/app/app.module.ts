@@ -35,6 +35,8 @@ import { SettingsDialogComponent } from './dialog/settings-dialog/settings-dialo
 import { PrioritiesComponent } from './views/priorities/priorities.component';
 import { EditPriorityDialogComponent } from './dialog/edit-priority-dialog/edit-priority-dialog.component';
 import {SidebarModule} from "ng-sidebar";
+import {DeviceDetectorService} from "ngx-device-detector";
+import { MeComponent } from './dialog/me/me.component';
 
 
 registerLocaleData(localeUa);
@@ -54,7 +56,8 @@ registerLocaleData(localeUa);
         StatCardComponent,
         SettingsDialogComponent,
         PrioritiesComponent,
-        EditPriorityDialogComponent
+        EditPriorityDialogComponent,
+        MeComponent
     ],
     imports: [
         BrowserModule,
@@ -74,10 +77,15 @@ registerLocaleData(localeUa);
         MatNativeDateModule,
         MatCheckboxModule,
         ColorPickerModule,
-        SidebarModule.forRoot()
+        SidebarModule.forRoot(),
     ],
-    providers: [],
-    entryComponents: [EditTaskDialogComponent, ConfirmDialogComponent, EditCategoryDialogComponent, AboutDialogComponent],
+    providers: [DeviceDetectorService],
+    entryComponents:[EditTaskDialogComponent,
+                    ConfirmDialogComponent,
+                    EditCategoryDialogComponent,
+                    AboutDialogComponent,
+                    SettingsDialogComponent,
+                    EditPriorityDialogComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

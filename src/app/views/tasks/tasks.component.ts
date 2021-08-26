@@ -9,6 +9,7 @@ import {Category} from '../../model/Category';
 import {Task} from '../../model/Task';
 import {DataHandlerService} from '../../service/data-handler.service';
 import {Priority} from "../../model/Priority";
+import {DeviceDetectorService} from "ngx-device-detector";
 
 @Component({
     selector: 'app-tasks',
@@ -56,12 +57,12 @@ export class TasksComponent implements OnInit {
     @Output()
     public addTask = new EventEmitter<Task>();
 
-    public dataHandler: DataHandlerService;
-    private dialog: MatDialog;
+    public isMobile:boolean;
 
-    constructor(dataHandler: DataHandlerService, dialog: MatDialog) {
-        this.dataHandler = dataHandler;
-        this.dialog = dialog;
+    constructor(public dataHandler: DataHandlerService,
+                public dialog: MatDialog,
+                public deviceService:DeviceDetectorService) {
+        this.isMobile = this.deviceService.isMobile();
     }
 
     public ngOnInit(): void {
@@ -167,7 +168,7 @@ export class TasksComponent implements OnInit {
         task.completed = !task.completed;
         this.updateTask.emit(task);
     }
-    public onSelectCategory(category: Category): void {
+    public onSelectCategory(category: Category) {
         this.selectCategory.emit(category);
     }
     public onFilterByTitle(): void{
@@ -193,5 +194,11 @@ export class TasksComponent implements OnInit {
                 this.addTask.emit(task);
             }
         })
+    }
+    public getMobilePriorityBgColor(task: Task) {
+        if (task.priority != null && !task.completed) {
+            return task.priority.color;
+        }
+        return 'none';
     }
 }

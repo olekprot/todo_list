@@ -1,19 +1,17 @@
 
-
-<footer class="footer">
-    <div class="sidebar"
-         data-color="purple"
-         data-step="5"
-         data-intro="Информация про разработчика">
+<footer class="footer"
+        data-step="5"
+        data-intro="Информация про разработчика"
+        data-position="top"
+        [ngClass]="{'text-center': isMobile, 'container-fluid': !isMobile}">
     <div class="container-fluid">
-
                 <nav class="float-left">
                     <ul>
                         <li>
-                            <a href="#">Про меня</a>
+                            <a (click)="openAboutMe()" class="link">Про меня</a>
                         </li>
                         <li>
-                            <a [href]="git">My GIT</a>
+                            <a [href]="git" class="link">My GIT</a>
                         </li>
                         <li>
                             <a (click)="openAboutDialog()" class="link">О приложении</a>
@@ -21,5 +19,4 @@
                     </ul>
                 </nav>
         </div>
-    </div>
 </footer>

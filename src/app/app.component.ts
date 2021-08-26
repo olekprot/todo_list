@@ -6,6 +6,7 @@ import {Priority} from "./model/Priority";
 import {zip} from "rxjs";
 import {concatMap, map} from "rxjs/operators";
 import {IntroService} from "./service/intro.service";
+import {DeviceDetectorService} from "ngx-device-detector";
 
 @Component({
     selector: 'app-root',
@@ -13,6 +14,7 @@ import {IntroService} from "./service/intro.service";
     templateUrl: 'app.component.html'
 })
 export class AppComponent implements OnInit {
+
     public title = 'TestTODO';
     public categoryMap = new Map<Category, number>();
     public tasks: Task[];
@@ -36,10 +38,17 @@ export class AppComponent implements OnInit {
     public menuPosition: any;
     public showBackdrop: boolean;
 
+    public isMobile: boolean;
+    public isTablet: boolean;
 
     constructor(public dataHandler: DataHandlerService,
-                public  introService: IntroService) {
+                public introService: IntroService,
+                public deviceService: DeviceDetectorService) {
+        this.isMobile = deviceService.isMobile();
+        this.isTablet = deviceService.isTablet();
+        this.showStat = true ? !this.isMobile : false;
         this.setMenuValues()
+
     }
 
     public ngOnInit(): void {
@@ -48,8 +57,11 @@ export class AppComponent implements OnInit {
         this.dataHandler.getAllCategories().subscribe((categories) => this.categories = categories);
         this.fillCategories();
         this.onSelectCategory(null);
-        this.introService.startIntroJS(true);
+        if (!this.isMobile && !this.isTablet){
+            this.introService.startIntroJS(true);
+        }
     }
+
     public fillCategories() {
         if (this.categoryMap) {
             this.categoryMap.clear();
@@ -178,9 +190,15 @@ export class AppComponent implements OnInit {
     }
     public setMenuValues() {
         this.menuPosition = 'left';
-        this.menuOpened = true;
-        this.menuMode = 'push';
-        this.showBackdrop = false;
+        if(this.isMobile){
+            this.menuOpened = false;
+            this.menuMode = 'over';
+            this.showBackdrop = true;
+        } else {
+            this.menuOpened = true;
+            this.menuMode = 'push';
+            this.showBackdrop = false;
+        }
     }
     public toggleMenu(){
         this.menuOpened = !this.menuOpened;

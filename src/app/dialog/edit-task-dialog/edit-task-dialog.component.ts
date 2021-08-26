@@ -5,6 +5,8 @@ import {Priority} from '../../model/Priority';
 import {Task} from '../../model/Task';
 import {DataHandlerService} from '../../service/data-handler.service';
 import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
+import {DeviceDetectorService} from "ngx-device-detector";
+
 
 @Component({
     selector: 'app-edit-task-dialog',
@@ -14,27 +16,36 @@ import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component
 export class EditTaskDialogComponent implements OnInit {
     constructor(
         public dialogRef: MatDialogRef<EditTaskDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) private date: [Task, string],
+        @Inject(MAT_DIALOG_DATA) public data: [Task, string],
         public dataHandler: DataHandlerService,
-        public dialog: MatDialog
-    ) {}
+        public dialog: MatDialog,
+        public deviceService: DeviceDetectorService
+    ) {
+        this.isMobile = deviceService.isMobile();
+    }
+
     public categories: Category[];
     public priorities: Priority[];
 
     public dialogTitle: string;
     public task: Task;
+
     public tmpTitle: string;
     public tmpCategory: Category;
     public tmpPriority: Priority;
     public tmpDate: Date;
 
+    public isMobile: boolean;
+
     public ngOnInit(): void {
-        this.task = this.date[0];
-        this.dialogTitle = this.date[1];
+        this.task = this.data[0];
+        this.dialogTitle = this.data[1];
+
         this.tmpTitle = this.task.title;
         this.tmpCategory = this.task.category;
         this.tmpPriority = this.task.priority;
         this.tmpDate = this.task.date;
+
         this.dataHandler.getAllCategories().subscribe((items) => (this.categories = items));
         this.dataHandler.getAllPriorities().subscribe((items) => (this.priorities = items));
     }
@@ -66,9 +77,11 @@ export class EditTaskDialogComponent implements OnInit {
             }
         });
     }
+
     public complete(): void {
         this.dialogRef.close('complete');
     }
+
     public activate(): void {
         this.dialogRef.close('activate');
     }
