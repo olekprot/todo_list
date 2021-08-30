@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { MatDialog } from "@angular/material/dialog";
 import {AboutDialogComponent} from "../../dialog/about/about.dialog.component";
 import {DeviceDetectorService} from "ngx-device-detector";
@@ -14,9 +14,10 @@ export class FooterComponent implements OnInit {
   public year: Date;
   public git = 'https://github.com/olekprot';
   public isMobile: boolean;
-  public dialog: MatDialog
 
-  constructor(public deviceService: DeviceDetectorService) {
+
+  constructor(public dialog: MatDialog,
+              public deviceService: DeviceDetectorService) {
       this.isMobile = deviceService.isMobile()
   }
 
