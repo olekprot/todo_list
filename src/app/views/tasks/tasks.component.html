@@ -102,7 +102,7 @@
                     <!--дата выполнения-->
                     <ng-container matColumnDef="date">
                         <th *matHeaderCellDef mat-header-cell mat-sort-header> Срок</th>
-                        <td *matCellDef="let task" [ngClass]="{'completed': task.completed, 'novalue': task.date == null}"
+                        <td *matCellDef="let task" [ngClass]="{'completed': task.completed, 'novalue': task.date === null}"
                             class="col-date"
                             mat-cell>
                             {{task.date | taskDate}}
@@ -113,7 +113,7 @@
                     <ng-container matColumnDef="priority">
                         <th *matHeaderCellDef mat-header-cell mat-sort-header>Приоритет</th>
                         <td *matCellDef="let task" class="col-priority"
-                            [ngClass]="{'completed': task.completed, 'novalue': task.priority == null}"
+                            [ngClass]="{'completed': task.completed, 'novalue': task.priority === null}"
                             mat-cell>
                             {{task.priority ? task.priority.title : "Без приоритета"}}
                         </td>
@@ -123,7 +123,7 @@
                     <ng-container matColumnDef="category">
                         <th *matHeaderCellDef mat-header-cell mat-sort-header>Категория</th>
                         <td *matCellDef="let task" class="col-category"
-                            [ngClass]="{'completed': task.completed, 'novalue': task.category == null, 'link': !task.completed && task.category}"
+                            [ngClass]="{'completed': task.completed, 'novalue': task.category === null, 'link': !task.completed && task.category}"
                             (click)="!task.completed && task.category && onSelectCategory(task.category)"
                             mat-cell>
                             {{task.category ? task.category.title : "Без категории"}}
@@ -211,7 +211,7 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="isMobile && tasks.length == 0">
+        <div *ngIf="isMobile && tasks.length === 0">
             <p class="not-found">Ничего не найдено</p>
         </div>
     </div>

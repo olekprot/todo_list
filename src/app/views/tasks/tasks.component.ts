@@ -10,6 +10,7 @@ import {Task} from '../../model/Task';
 import {DataHandlerService} from '../../service/data-handler.service';
 import {Priority} from "../../model/Priority";
 import {DeviceDetectorService} from "ngx-device-detector";
+import {ModalActions} from "../../dialog/ModalActions";
 
 @Component({
     selector: 'app-tasks',
@@ -66,20 +67,15 @@ export class TasksComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        // this.dataHandler.getAllTasks().subscribe((tasks) => this.tasks = tasks);
-
-        // датасорс обязательно нужно создавать для таблицы, в него присваивается любой источник (БД, массивы, JSON и пр.)
         this.dataSource = new MatTableDataSource();
         this.onSelectCategory(null);
     }
 
-    // в зависимости от статуса задачи - вернуть цвет названия
     public getPriorityColor(task: Task): string {
         // цвет завершенной задачи
         if (task.completed) {
             return '#F8F9FA'; // TODO вынести цвета в константы (magic strings, magic numbers)
         }
-
         if (task.priority && task.priority.color) {
             return task.priority.color;
         }
@@ -87,7 +83,6 @@ export class TasksComponent implements OnInit {
         return '#fff'; // TODO вынести цвета в константы (magic strings, magic numbers)
     }
 
-    // показывает задачи с применением всех текущий условий (категория, поиск, фильтры и пр.)
     public fillTable(): void {
         if (!this.dataSource) {
             return;
@@ -95,8 +90,6 @@ export class TasksComponent implements OnInit {
         this.dataSource.data = this.tasks; // обновить источник данных (т.к. данные массива tasks обновились)
         this.addTableObjects();
 
-        // когда получаем новые данные..
-        // чтобы можно было сортировать по столбцам "категория" и "приоритет", т.к. там не примитивные типы, а объекты
         // @ts-ignore - показывает ошибку для типа даты, но так работает, т.к. можно возвращать любой тип
         this.dataSource.sortingDataAccessor = (task, colName) => {
             // по каким полям выполнять сортировку для каждого столбца
@@ -133,15 +126,15 @@ export class TasksComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe((result) => {
-            if (result === 'delete') {
+            if (result === ModalActions.delete) {
                 this.deleteTask.emit(task);
                 return;
             }
-            if (result === 'complete') {
+            if (result === ModalActions.complete) {
                 task.completed = true;
                 this.updateTask.emit(task);
             }
-            if (result === 'activate') {
+            if (result === ModalActions.activate) {
                 task.completed = false;
                 this.updateTask.emit(task);
                 return;
@@ -168,8 +161,8 @@ export class TasksComponent implements OnInit {
         task.completed = !task.completed;
         this.updateTask.emit(task);
     }
-    public onSelectCategory(category: Category) {
-        this.selectCategory.emit(category);
+    public onSelectCategory(category: any) {
+        this.selectCategory.emit(category as Category);
     }
     public onFilterByTitle(): void{
         this.filterByTitle.emit(this.searchTaskText);

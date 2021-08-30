@@ -54,14 +54,7 @@ export class TaskDAOArray implements ITaskDao {
     public search(category: Category, searchText: string, status: boolean, priority: Priority): Observable<Task[]> {
         return of(this.searchTasks(category, searchText, status, priority));
     }
-/*
-    public searchTodos(category: Category, searchText: string, status: boolean, priority: Priority): Task[] {
-        let allTasks = TestData.tasks;
-        if (category !== null) {
-            allTasks = allTasks.filter((todo) => todo.category === category);
-        }
-        return allTasks;
-    }*/
+
     public searchTasks(category: Category, searchText: string, status: boolean, priority: Priority): Task[] {
         let allTasks = TestData.tasks;
         if (status != null){
@@ -86,7 +79,7 @@ export class TaskDAOArray implements ITaskDao {
         return of(T);
     }
 
-    getTotalCountCategory(category: Category): Observable<number> {
+    public getTotalCountCategory(category: Category): Observable<number> {
         return undefined;
     }
 }

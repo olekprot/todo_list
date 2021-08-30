@@ -9,7 +9,6 @@ export class CategoryDAOArray implements ICategoryDao {
         if (category.id === null || category.id === 0) {
             category.id = this.getLastIdCategory();
         }
-
         TestData.categories.push(category);
         return of(category);
 

@@ -1,17 +1,18 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Priority} from '../../model/Priority';
 import {EditCategoryDialogComponent} from '../../dialog/edit-category-dialog/edit-category-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {ConfirmDialogComponent} from '../../dialog/confirm-dialog/confirm-dialog.component';
 import {EditPriorityDialogComponent} from "../../dialog/edit-priority-dialog/edit-priority-dialog.component";
 import {OperType} from "../../dialog/OperType";
+import {ModalActions} from "../../dialog/ModalActions";
 
 @Component({
   selector: 'app-priorities',
   templateUrl: './priorities.component.html',
   styleUrls: ['./priorities.component.css']
 })
-export class PrioritiesComponent implements OnInit {
+export class PrioritiesComponent {
 
   static defaultColor = '#fff';
 
@@ -26,9 +27,6 @@ export class PrioritiesComponent implements OnInit {
 
 
   constructor(public dialog: MatDialog) {
-  }
-
-  ngOnInit() {
   }
 
   public delete(priority: Priority): void {
@@ -64,7 +62,7 @@ export class PrioritiesComponent implements OnInit {
         {data: [priority.title, 'Редактирование приоритета', OperType.EDIT]});
 
     dialogRef.afterClosed().subscribe((result: string) => {
-      if (result === 'delete') {
+      if (result === ModalActions.delete) {
         this.deletePriority.emit(priority);
         return;
       }

@@ -46,7 +46,7 @@
     <div class="col-md-5 col-12" [ngClass]="{'text-center': isMobile, 'text-left': !isMobile}">
         <button mat-raised-button color="primary"
                 (click)="onConfirm()"
-                [disabled]="inputTitle.value.trim().length==0"
+                [disabled]="inputTitle.value.trim().length===0"
                 class="edit-task_button">
             Сохранить
         </button>

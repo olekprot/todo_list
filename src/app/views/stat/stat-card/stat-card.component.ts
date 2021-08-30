@@ -1,11 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-stat-card',
   templateUrl: './stat-card.component.html',
   styleUrls: ['./stat-card.component.css']
 })
-export class StatCardComponent implements OnInit {
+export class StatCardComponent {
 
   @Input()
   public completed: boolean = false;
@@ -17,10 +17,4 @@ export class StatCardComponent implements OnInit {
   public countTotal: number | string;
   @Input()
   public title: string;
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
 }

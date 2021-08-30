@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import * as introJs from "intro.js";
 
-
 @Injectable({
   providedIn: 'root'
 })

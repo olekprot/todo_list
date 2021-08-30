@@ -16,8 +16,7 @@ export class SettingsDialogComponent implements OnInit {
       public dataHandler: DataHandlerService
   ) { }
 
-  ngOnInit(
-  ) {
+  ngOnInit( ) {
     this.dataHandler.getAllPriorities().subscribe( priorities => this.priorities = priorities);
   }
   public onClose() {

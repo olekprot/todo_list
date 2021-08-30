@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {SettingsDialogComponent} from "../../dialog/settings-dialog/settings-dialog.component";
 import {IntroService} from "../../service/intro.service";
@@ -9,7 +9,7 @@ import {DeviceDetectorService} from "ngx-device-detector";
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
   @Input()
   public categoryName: string;
@@ -28,8 +28,6 @@ export class HeaderComponent implements OnInit {
     this.isMobile=deviceDetector.isMobile();
   }
 
-  ngOnInit() {
-  }
   public onToggleStat() {
     this.toggleStat.emit(!this.showStat);
   }

@@ -6,6 +6,8 @@ import {Task} from '../../model/Task';
 import {DataHandlerService} from '../../service/data-handler.service';
 import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
 import {DeviceDetectorService} from "ngx-device-detector";
+import {DialogMet} from "../DialogMet";
+import {ModalActions} from "../ModalActions";
 
 
 @Component({
@@ -13,17 +15,7 @@ import {DeviceDetectorService} from "ngx-device-detector";
     styleUrls: ['./edit-task-dialog.component.css'],
     templateUrl: './edit-task-dialog.component.html'
 })
-export class EditTaskDialogComponent implements OnInit {
-    constructor(
-        public dialogRef: MatDialogRef<EditTaskDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: [Task, string],
-        public dataHandler: DataHandlerService,
-        public dialog: MatDialog,
-        public deviceService: DeviceDetectorService
-    ) {
-        this.isMobile = deviceService.isMobile();
-    }
-
+export class EditTaskDialogComponent extends DialogMet<EditTaskDialogComponent> implements OnInit {
     public categories: Category[];
     public priorities: Priority[];
 
@@ -36,6 +28,17 @@ export class EditTaskDialogComponent implements OnInit {
     public tmpDate: Date;
 
     public isMobile: boolean;
+
+    constructor(
+        public dialogRef: MatDialogRef<EditTaskDialogComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: [Task, string],
+        public dataHandler: DataHandlerService,
+        public dialog: MatDialog,
+        public deviceService: DeviceDetectorService
+    ) {
+        super(dialogRef);
+        this.isMobile = deviceService.isMobile();
+    }
 
     public ngOnInit(): void {
         this.task = this.data[0];
@@ -58,10 +61,6 @@ export class EditTaskDialogComponent implements OnInit {
         this.dialogRef.close(this.task);
     }
 
-    public onCancel(): void {
-        this.dialogRef.close(null);
-    }
-
     public delete(): void {
         const dialogRef = this.dialog.open(ConfirmDialogComponent, {
             maxWidth: '500px',
@@ -73,16 +72,16 @@ export class EditTaskDialogComponent implements OnInit {
         });
         dialogRef.afterClosed().subscribe((result: boolean) => {
             if (result) {
-                this.dialogRef.close('delete');
+                this.dialogRef.close(ModalActions.delete);
             }
         });
     }
 
     public complete(): void {
-        this.dialogRef.close('complete');
+        this.dialogRef.close(ModalActions.complete);
     }
 
     public activate(): void {
-        this.dialogRef.close('activate');
+        this.dialogRef.close(ModalActions.activate);
     }
 }

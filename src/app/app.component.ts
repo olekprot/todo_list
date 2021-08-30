@@ -48,11 +48,9 @@ export class AppComponent implements OnInit {
         this.isTablet = deviceService.isTablet();
         this.showStat = true ? !this.isMobile : false;
         this.setMenuValues()
-
     }
 
     public ngOnInit(): void {
-        // this.dataHandler.getAllTasks().subscribe((tasks) => this.tasks = tasks);
         this.dataHandler.getAllPriorities().subscribe((priorities) => this.priorities = priorities)
         this.dataHandler.getAllCategories().subscribe((categories) => this.categories = categories);
         this.fillCategories();

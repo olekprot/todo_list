@@ -2,6 +2,8 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
 import {OperType} from "../OperType";
+import {DialogMet} from "../DialogMet";
+import {ModalActions} from "../ModalActions";
 
 @Component({
   selector: 'app-edit-priority-dialog',
@@ -10,7 +12,7 @@ import {OperType} from "../OperType";
 })
 
 // создание/редактирование категории
-export class EditPriorityDialogComponent implements OnInit {
+export class EditPriorityDialogComponent extends DialogMet<EditPriorityDialogComponent> implements OnInit {
 
   public dialogTitle: string; // текст для диалогового окна
   public priorityTitle: string; // текст для названия приоритета (при реактировании или добавлении)
@@ -21,28 +23,21 @@ export class EditPriorityDialogComponent implements OnInit {
       @Inject(MAT_DIALOG_DATA) private data: [string, string, OperType], // данные, которые передали в диалоговое окно
       public dialog: MatDialog // для открытия нового диалогового окна (из текущего) - например для подтверждения удаления
   ) {
+    super(dialogRef);
   }
 
   ngOnInit() {
     this.priorityTitle = this.data[0];
     this.dialogTitle = this.data[1];
     this.operType = this.data[2];
-
   }
 
-  // нажали ОК
   public onConfirm(): void {
     this.dialogRef.close(this.priorityTitle);
   }
 
-  // нажали отмену (ничего не сохраняем и закрываем окно)
-  public onCancel(): void {
-    this.dialogRef.close(false);
-  }
-
   // нажали Удалить
   public delete(): void {
-
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       maxWidth: '500px',
       data: {
@@ -54,15 +49,11 @@ export class EditPriorityDialogComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.dialogRef.close('delete'); // нажали удалить
+        this.dialogRef.close(ModalActions.delete); // нажали удалить
       }
     });
-
-
   }
-
-
   public canDelete(): boolean {
-    return this.operType == OperType.EDIT;
+    return this.operType === OperType.EDIT;
   }
 }

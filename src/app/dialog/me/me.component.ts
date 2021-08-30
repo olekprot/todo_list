@@ -1,21 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {MatDialogRef} from "@angular/material/dialog";
+import {DialogMet} from "../DialogMet";
 
 @Component({
   selector: 'app-me',
   templateUrl: './me.component.html',
   styleUrls: ['./me.component.css']
 })
-export class MeComponent implements OnInit {
+export class MeComponent extends DialogMet<MeComponent>{
 
   public photo: any;
   public git = 'https://github.com/olekprot';
 
-  constructor ( public dialogRef: MatDialogRef<MeComponent>) { }
-
-  ngOnInit(): void {
-  }
-  public onConfirm(): void {
-    this.dialogRef.close(true);
+  constructor ( public dialogRef: MatDialogRef<MeComponent>) {
+    super(dialogRef);
   }
 }

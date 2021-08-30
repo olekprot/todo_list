@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 
 @Component({
@@ -6,7 +6,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
   templateUrl: './about.dialog.component.html',
   styleUrls: ['./about.dialog.component.css']
 })
-export class AboutDialogComponent implements OnInit {
+export class AboutDialogComponent {
 
   public dialogTitle: string;
   public message: string;
@@ -20,8 +20,6 @@ export class AboutDialogComponent implements OnInit {
     this.message = data.message;
   }
 
-  ngOnInit() {
-  }
   public onConfirm(): void {
     this.dialogRef.close(true);
   }

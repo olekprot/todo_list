@@ -1,17 +1,18 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {EditCategoryDialogComponent} from '../../dialog/edit-category-dialog/edit-category-dialog.component';
 import {Category} from '../../model/Category';
 import {DataHandlerService} from '../../service/data-handler.service';
 import {OperType} from '../../dialog/OperType';
 import {DeviceDetectorService} from "ngx-device-detector";
+import {ModalActions} from "../../dialog/ModalActions";
 
 @Component({
     selector: 'app-categories',
     styleUrls: ['./categories.component.css'],
     templateUrl: './categories.component.html'
 })
-export class CategoriesComponent implements OnInit {
+export class CategoriesComponent {
     @Input()
     public categories: Category[];
     @Input()
@@ -49,10 +50,6 @@ export class CategoriesComponent implements OnInit {
     }
 
     // метод вызывается автоматически после инициализации компонента
-    public ngOnInit(): void {
-        // this.dataHandler.getAllCategories().subscribe((categories) => this.categories = categories);
-    }
-
     public showTasksByCategory(category: Category): void {
         if (this.selectedCategory === category) {
             return;
@@ -70,7 +67,7 @@ export class CategoriesComponent implements OnInit {
             width: '400px'
         });
         dialogRef.afterClosed().subscribe((result) => {
-            if (result === 'delete') {
+            if (result === ModalActions.delete) {
                 this.deleteCategory.emit(category);
                 return;
             }

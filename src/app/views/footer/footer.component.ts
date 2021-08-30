@@ -4,7 +4,6 @@ import {AboutDialogComponent} from "../../dialog/about/about.dialog.component";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {MeComponent} from "../../dialog/me/me.component";
 
-
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
@@ -15,14 +14,13 @@ export class FooterComponent implements OnInit {
   public year: Date;
   public git = 'https://github.com/olekprot';
   public isMobile: boolean;
+  public dialog: MatDialog
 
-
-  constructor(public dialog: MatDialog,
-              public deviceService: DeviceDetectorService) {
+  constructor(public deviceService: DeviceDetectorService) {
       this.isMobile = deviceService.isMobile()
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.year = new Date();
   }
   public openAboutDialog(){
@@ -30,7 +28,7 @@ export class FooterComponent implements OnInit {
         {
           autoFocus: false,
           data: {
-            dialogTitle: 'Проэкт TODO-List',
+            dialogTitle: 'Проект TODO-List',
             message: 'Мой тестовый проект. Реализован простой ежедневник с задачами и категориями.'+
                 'Также добавлена статистика по выполнению задач.'
           },
