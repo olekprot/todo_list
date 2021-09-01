@@ -1,7 +1,14 @@
-.my_name{
-    font-size: 30px;
-    font-weight: bold;
+
+.download_text{
+    text-align: center;
+    padding-top: 15px;
+    font-size: 20px;
 }
-.header_title-me{
-    margin-left: 20px;
+.buttons_download{
+    display: flex;
+    justify-content: center;
+}
+
+.buttons_download button{
+    margin: 10px !important;
 }

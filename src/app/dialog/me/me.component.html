@@ -1,43 +1,27 @@
-<div class="row settings">
-    <div class="col-5 text-center align-self-top">
-        <img>{{photo}}
-    </div>
-    <div class="col-5 text-center align-self-top">
-        <p class=" col-7 my_name">Protyniak Oleksii</p>
-        <p class="col-5 text-left">Region:
-            <span>Kharkiv</span>
-        </p>
-        <p class="col-10 text-left"> Phone:
-            <a href="tel:0500429505">0500429505</a>
-        </p>
-        <p class="col-10 text-left">Email:
-            <a href="mailto:oleksii.protyniak@gmail.com">oleksii.protyniak@gmail.com</a>
-        </p>
-        <p class="col-10 text-left">Skype:
-            <a href="skype:pralek2913">pralek2913</a>
-        </p>
-        <p class="col-10 text-left">LinkedIn:
-            <a href="#">pralek2913</a>
-        </p>
-        <p class="col-10 text-left">GIT:
-            <a [href]="git" class="link">olekprot</a>
-        </p>
 
-    </div>
-    <div class="col-2 text-right align-self-top">
-        <button mat-icon-button  class="header-icon" (click)="onCancel()">
-            <mat-icon>close</mat-icon>
+<div class="text-right align-self-top">
+    <button mat-icon-button  class="header-icon" (click)="onCancel()">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+<p class="download_text">Скачать резюме:</p>
+<div class="main_info">
+    <div class="buttons_download">
+        <button
+                color="primary"
+                mat-raised-button>
+            PDF
+        </button>
+        <button
+                color="primary"
+                mat-raised-button>
+            WORD
         </button>
     </div>
 </div>
 
 
 
-<p>
-    Knowledge of JavaScript
-    • Knowledge of TypeScript
-    • Basic knowledge of HTTP, HTML, CSS/SCSS,
-    • Basic knowledge of and experience in working with Angular RxJS, NgRx, Material UI
-    • Eager to learn
-    • Intermediate level of English
-    • Home projects to demonstrate your skills (code examples from Github).</p>
+
+
+

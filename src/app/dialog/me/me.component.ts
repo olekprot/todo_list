@@ -9,10 +9,14 @@ import {DialogMet} from "../DialogMet";
 })
 export class MeComponent extends DialogMet<MeComponent>{
 
-  public photo: any;
-  public git = 'https://github.com/olekprot';
 
   constructor ( public dialogRef: MatDialogRef<MeComponent>) {
     super(dialogRef);
   }
+
+
+
+
+
+
 }

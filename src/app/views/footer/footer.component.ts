@@ -40,8 +40,7 @@ export class FooterComponent implements OnInit {
         this.dialog.open(MeComponent,
             {
                 autoFocus: false,
-                width: '1200px',
-                height: '100%'
+                width: '300px',
             });
     }
 }
